@@ -1,0 +1,21 @@
+{
+  "name": "smart-campus-community",
+  "version": "1.0.0",
+  "description": "Smart Campus Community App - Study Spaces, Mentorship & AI Reading Curator",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server . -p 3000 -o",
+    "dev": "npx http-server . -p 3000 -c-1"
+  },
+  "keywords": [
+    "campus",
+    "study-spaces",
+    "mentorship",
+    "google-maps",
+    "firebase",
+    "gemini-ai"
+  ],
+  "author": "Smart Campus Team",
+  "license": "MIT",
+  "dependencies": {}
+}

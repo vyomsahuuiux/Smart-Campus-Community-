@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Campus Community</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- App Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader">
+            <div class="loader-spinner"></div>
+            <p>Loading Smart Campus...</p>
+        </div>
+    </div>
+
+    <!-- App Container -->
+    <div id="app" class="app-container hidden">
+        <!-- Navigation Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="material-icons">school</span>
+                    <h1>Smart Campus</h1>
+                </div>
+                <nav class="main-nav">
+                    <button class="nav-btn active" data-section="home">
+                        <span class="material-icons">home</span>
+                        <span>Home</span>
+                    </button>
+                    <button class="nav-btn" data-section="study-spaces">
+                        <span class="material-icons">library_books</span>
+                        <span>Study Spaces</span>
+                    </button>
+                    <button class="nav-btn" data-section="mentorship">
+                        <span class="material-icons">people</span>
+                        <span>Mentorship</span>
+                    </button>
+                    <button class="nav-btn" data-section="reading-curator">
+                        <span class="material-icons">auto_stories</span>
+                        <span>Reading Curator</span>
+                    </button>
+                </nav>
+                <div class="user-section">
+                    <!-- Messages Button -->
+                    <div class="messages-btn-container hidden" id="messages-container">
+                        <button class="btn btn-icon messages-btn" id="messages-btn" title="Messages">
+                            <span class="material-icons">chat</span>
+                            <span class="messages-badge hidden" id="messages-badge">0</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Notification Bell - Always visible -->
+                    <div class="notification-bell-container" id="notification-container">
+                        <button class="btn btn-icon notification-bell" id="notification-bell" title="Notifications">
+                            <span class="material-icons">notifications</span>
+                            <span class="notification-badge" id="notification-badge">2</span>
+                        </button>
+                        <div class="notification-panel" id="notification-panel">
+                            <div class="notification-header">
+                                <h3>Notifications</h3>
+                                <button class="btn btn-ghost btn-sm" id="mark-all-read">
+                                    <span class="material-icons">done_all</span>
+                                    Mark all read
+                                </button>
+                            </div>
+                            <div class="notification-tabs">
+                                <button class="notification-tab active" data-tab="all">All</button>
+                                <button class="notification-tab" data-tab="unread">Unread</button>
+                            </div>
+                            <div class="notification-list" id="notification-list">
+                                <div class="notification-empty">
+                                    <span class="material-icons">notifications_none</span>
+                                    <p>No notifications yet</p>
+                                </div>
+                            </div>
+                            <div class="notification-footer">
+                                <button class="btn btn-ghost btn-full" id="view-all-notifications">
+                                    View all notifications
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="auth-buttons" class="auth-buttons">
+                        <button id="login-btn" class="btn btn-outline">Sign In</button>
+                        <button id="signup-btn" class="btn btn-primary">Sign Up</button>
+                    </div>
+                    <div id="user-menu" class="user-menu hidden">
+                        <div class="user-menu-trigger" id="user-menu-trigger">
+                            <img id="user-avatar" src="" alt="User" class="user-avatar">
+                            <div class="user-menu-info">
+                                <span id="user-name" class="user-name"></span>
+                                <div id="user-roles" class="user-roles">
+                                    <span class="role-badge student"><span class="material-icons">school</span> Student</span>
+                                </div>
+                            </div>
+                            <span class="material-icons dropdown-arrow">expand_more</span>
+                        </div>
+                        <div class="user-dropdown" id="user-dropdown">
+                            <div class="dropdown-user-info">
+                                <div class="dropdown-user-roles" id="dropdown-user-roles">
+                                    <!-- Roles will be populated here -->
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <button class="dropdown-item" id="profile-settings-btn">
+                                <span class="material-icons">settings</span>
+                                <span>Profile Settings</span>
+                            </button>
+                            <button class="dropdown-item" id="my-activity-btn">
+                                <span class="material-icons">history</span>
+                                <span>My Activity</span>
+                            </button>
+                            <div class="dropdown-divider"></div>
+                            <button class="dropdown-item" id="logout-btn">
+                                <span class="material-icons">logout</span>
+                                <span>Sign Out</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Section -->
+            <section id="home" class="content-section active">
+                <!-- Hero Section -->
+                <div class="home-hero">
+                    <div class="hero-content">
+                        <h1>Welcome to <span class="gradient-text">Smart Campus</span></h1>
+                        <p class="hero-subtitle">Your all-in-one platform for finding study spaces, connecting with mentors, and discovering personalized reading recommendations.</p>
+                        <div class="hero-actions">
+                            <button class="btn btn-primary btn-lg" data-navigate="study-spaces">
+                                <span class="material-icons">explore</span>
+                                Explore Spaces
+                            </button>
+                            <button class="btn btn-outline btn-lg" data-navigate="mentorship">
+                                <span class="material-icons">people</span>
+                                Find Mentors
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hero-illustration">
+                        <div class="floating-cards">
+                            <div class="floating-card card-1">
+                                <span class="material-icons">library_books</span>
+                            </div>
+                            <div class="floating-card card-2">
+                                <span class="material-icons">people</span>
+                            </div>
+                            <div class="floating-card card-3">
+                                <span class="material-icons">auto_stories</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats Section -->
+                <div class="home-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon study">
+                            <span class="material-icons">location_on</span>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-value" id="home-spaces-count">20+</span>
+                            <span class="stat-label">Study Spaces</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon mentor">
+                            <span class="material-icons">school</span>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-value" id="home-mentors-count">50+</span>
+                            <span class="stat-label">Active Mentors</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon reading">
+                            <span class="material-icons">menu_book</span>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-value" id="home-books-count">1000+</span>
+                            <span class="stat-label">Book Recommendations</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon users">
+                            <span class="material-icons">group</span>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-value" id="home-users-count">500+</span>
+                            <span class="stat-label">Campus Users</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Section -->
+                <div class="home-features">
+                    <h2 class="section-title">What You Can Do</h2>
+                    <div class="features-grid">
+                        <div class="feature-card" data-navigate="study-spaces">
+                            <div class="feature-icon">
+                                <span class="material-icons">map</span>
+                            </div>
+                            <h3>Find Study Spaces</h3>
+                            <p>Discover libraries, quiet rooms, and cafés near you. See real-time availability and crowd levels.</p>
+                            <span class="feature-link">
+                                Explore <span class="material-icons">arrow_forward</span>
+                            </span>
+                        </div>
+                        <div class="feature-card" data-navigate="mentorship">
+                            <div class="feature-icon">
+                                <span class="material-icons">handshake</span>
+                            </div>
+                            <h3>Connect with Mentors</h3>
+                            <p>Get guidance from alumni and industry professionals. Build meaningful connections for your career.</p>
+                            <span class="feature-link">
+                                Find Mentors <span class="material-icons">arrow_forward</span>
+                            </span>
+                        </div>
+                        <div class="feature-card" data-navigate="reading-curator">
+                            <div class="feature-icon">
+                                <span class="material-icons">auto_awesome</span>
+                            </div>
+                            <h3>AI Reading Curator</h3>
+                            <p>Get personalized book and article recommendations powered by AI based on your interests and courses.</p>
+                            <span class="feature-link">
+                                Get Recommendations <span class="material-icons">arrow_forward</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions Section (for logged in users) -->
+                <div class="home-quick-actions" id="home-quick-actions">
+                    <h2 class="section-title">Quick Actions</h2>
+                    <div class="quick-actions-grid">
+                        <button class="quick-action-btn" data-navigate="study-spaces">
+                            <span class="material-icons">add_location</span>
+                            <span>Suggest a Space</span>
+                        </button>
+                        <button class="quick-action-btn" id="quick-become-mentor">
+                            <span class="material-icons">volunteer_activism</span>
+                            <span>Become a Mentor</span>
+                        </button>
+                        <button class="quick-action-btn" data-navigate="reading-curator">
+                            <span class="material-icons">bookmark_add</span>
+                            <span>Save Reading List</span>
+                        </button>
+                        <button class="quick-action-btn" id="quick-profile-settings">
+                            <span class="material-icons">settings</span>
+                            <span>Edit Profile</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Recent Activity Section -->
+                <div class="home-activity" id="home-activity">
+                    <h2 class="section-title">Recent Activity</h2>
+                    <div class="activity-list" id="activity-list">
+                        <div class="activity-empty">
+                            <span class="material-icons">history</span>
+                            <p>No recent activity. Start exploring to see your activity here!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Getting Started Section (for new users) -->
+                <div class="home-getting-started" id="home-getting-started">
+                    <h2 class="section-title">Getting Started</h2>
+                    <div class="getting-started-steps">
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Create Your Account</h4>
+                                <p>Sign up to unlock all features and personalize your experience.</p>
+                                <button class="btn btn-primary btn-sm" id="step-signup-btn">Sign Up Now</button>
+                            </div>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Complete Your Profile</h4>
+                                <p>Add your interests, major, and preferences for better recommendations.</p>
+                            </div>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Start Exploring</h4>
+                                <p>Find study spaces, connect with mentors, or get reading suggestions!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Study Spaces Section -->
+            <section id="study-spaces" class="content-section">
+                <div class="section-header">
+                    <h2>Find Your Perfect Study Spot</h2>
+                    <p>Discover quiet study areas, libraries, and cafés near you in real-time</p>
+                </div>
+                
+                <div class="study-spaces-container">
+                    <div class="map-container">
+                        <div id="study-map" class="map"></div>
+                        <div class="map-controls">
+                            <button id="locate-me" class="btn btn-icon" title="Find my location">
+                                <span class="material-icons">my_location</span>
+                            </button>
+                            <button id="refresh-spaces" class="btn btn-icon" title="Refresh spaces">
+                                <span class="material-icons">refresh</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="spaces-sidebar">
+                        <div class="filter-section">
+                            <h3>Filters</h3>
+                            <div class="filter-group">
+                                <label>Type</label>
+                                <div class="filter-chips">
+                                    <button class="chip active" data-filter="all">All</button>
+                                    <button class="chip" data-filter="library">Library</button>
+                                    <button class="chip" data-filter="cafe">Café</button>
+                                    <button class="chip" data-filter="study-room">Study Room</button>
+                                </div>
+                            </div>
+                            <div class="filter-group">
+                                <label>Availability</label>
+                                <div class="filter-chips">
+                                    <button class="chip active" data-availability="any">Any</button>
+                                    <button class="chip" data-availability="available">Available</button>
+                                    <button class="chip" data-availability="quiet">Quiet</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="spaces-list" id="spaces-list">
+                            <!-- Study spaces will be populated here -->
+                            <div class="loading-placeholder">
+                                <span class="material-icons spinning">sync</span>
+                                <p>Loading study spaces...</p>
+                            </div>
+                        </div>
+                        
+                        <button id="add-space-btn" class="btn btn-primary btn-full">
+                            <span class="material-icons">add_location</span>
+                            Suggest a Study Space
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mentorship Section -->
+            <section id="mentorship" class="content-section">
+                <div class="section-header">
+                    <h2>Connect with Mentors</h2>
+                    <p>Find guidance from campus alumni and community experts</p>
+                </div>
+                
+                <div class="mentorship-container">
+                    <div class="mentor-filters">
+                        <div class="search-box">
+                            <span class="material-icons">search</span>
+                            <input type="text" id="mentor-search" placeholder="Search by name, expertise, or field...">
+                        </div>
+                        <div class="expertise-filters">
+                            <button class="chip active" data-expertise="all">All Fields</button>
+                            <button class="chip" data-expertise="technology">Technology</button>
+                            <button class="chip" data-expertise="business">Business</button>
+                            <button class="chip" data-expertise="science">Science</button>
+                            <button class="chip" data-expertise="arts">Arts</button>
+                            <button class="chip" data-expertise="engineering">Engineering</button>
+                            <button class="chip" data-expertise="healthcare">Healthcare</button>
+                        </div>
+                    </div>
+                    
+                    <div class="mentorship-content">
+                        <div class="mentors-grid" id="mentors-grid">
+                            <!-- Mentor cards will be populated here -->
+                            <div class="loading-placeholder">
+                                <span class="material-icons spinning">sync</span>
+                                <p>Loading mentors...</p>
+                            </div>
+                        </div>
+                        
+                        <aside class="mentorship-sidebar">
+                            <div class="become-mentor-card" id="become-mentor-card">
+                                <span class="material-icons">volunteer_activism</span>
+                                <h3>Become a Mentor</h3>
+                                <p>Share your expertise and help fellow students succeed</p>
+                                <button id="become-mentor-btn" class="btn btn-primary">Register as Mentor</button>
+                            </div>
+                            
+                            <!-- Mentor Dashboard Card (shown when user is a mentor) -->
+                            <div class="mentor-dashboard-card hidden" id="mentor-dashboard-card">
+                                <span class="material-icons">dashboard</span>
+                                <h3>Mentor Dashboard</h3>
+                                <p>View and manage student requests</p>
+                                <div class="dashboard-stats" id="dashboard-stats">
+                                    <div class="stat-item">
+                                        <span class="stat-number" id="pending-count">0</span>
+                                        <span class="stat-label">Pending</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-number" id="accepted-count">0</span>
+                                        <span class="stat-label">Accepted</span>
+                                    </div>
+                                </div>
+                                <button id="open-dashboard-btn" class="btn btn-primary">Open Dashboard</button>
+                            </div>
+                            
+                            <!-- My Mentors (for students - shows accepted mentors) -->
+                            <div class="my-connections" id="my-mentors-section">
+                                <h3><span class="material-icons">school</span> My Mentors</h3>
+                                <p class="section-subtitle">Accepted mentorship connections</p>
+                                <div id="my-mentors-list" class="connections-list">
+                                    <p class="empty-state">No mentors yet. Connect with mentors above!</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Pending Requests (for students) -->
+                            <div class="my-connections" id="pending-requests-section">
+                                <h3><span class="material-icons">pending</span> Pending Requests</h3>
+                                <p class="section-subtitle">Waiting for mentor response</p>
+                                <div id="pending-requests-list" class="connections-list">
+                                    <p class="empty-state">No pending requests</p>
+                                </div>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reading Curator Section -->
+            <section id="reading-curator" class="content-section">
+                <div class="section-header">
+                    <h2>AI Reading Curator</h2>
+                    <p>Get personalized book recommendations, study tips, and answers to your questions</p>
+                </div>
+                
+                <div class="curator-container">
+                    <!-- Main Chat Area -->
+                    <div class="chat-container modern-chat">
+                        <!-- Chat Header -->
+                        <div class="chat-header">
+                            <div class="chat-header-info">
+                                <div class="ai-avatar-container">
+                                    <div class="ai-avatar pulse-ring">
+                                        <span class="material-icons">psychology</span>
+                                    </div>
+                                    <span class="status-dot online"></span>
+                                </div>
+                                <div class="chat-header-text">
+                                    <h3>Campus AI Assistant</h3>
+                                    <span class="ai-status">
+                                        <span class="typing-indicator-small">
+                                            <span></span><span></span><span></span>
+                                        </span>
+                                        Ready to help
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="chat-header-actions">
+                                <button id="clear-chat" class="btn-glass" title="Clear chat">
+                                    <span class="material-icons">delete_outline</span>
+                                </button>
+                                <button class="btn-glass" title="Chat settings">
+                                    <span class="material-icons">tune</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Messages Area -->
+                        <div class="chat-messages" id="chat-messages">
+                            <div class="message bot-message animate-in">
+                                <div class="message-avatar bot-avatar">
+                                    <span class="material-icons">psychology</span>
+                                </div>
+                                <div class="message-bubble">
+                                    <div class="message-content">
+                                        <p class="greeting-text">👋 Hey there! I'm your <strong>AI Campus Assistant</strong>.</p>
+                                        <div class="capabilities-grid">
+                                            <div class="capability-item">
+                                                <span class="capability-icon">📚</span>
+                                                <span>Book Recommendations</span>
+                                            </div>
+                                            <div class="capability-item">
+                                                <span class="capability-icon">🎯</span>
+                                                <span>Study Strategies</span>
+                                            </div>
+                                            <div class="capability-item">
+                                                <span class="capability-icon">💼</span>
+                                                <span>Career Guidance</span>
+                                            </div>
+                                            <div class="capability-item">
+                                                <span class="capability-icon">✨</span>
+                                                <span>Writing Tips</span>
+                                            </div>
+                                        </div>
+                                        <p class="cta-text">What can I help you explore today?</p>
+                                    </div>
+                                    <div class="message-footer">
+                                        <span class="message-time">Just now</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Quick Action Cards -->
+                            <div class="quick-actions-container">
+                                <button class="quick-action-card" data-prompt="Recommend books about machine learning">
+                                    <span class="action-icon">🤖</span>
+                                    <span class="action-text">Machine Learning Books</span>
+                                    <span class="material-icons action-arrow">arrow_forward</span>
+                                </button>
+                                <button class="quick-action-card" data-prompt="How should I study effectively for exams?">
+                                    <span class="action-icon">📝</span>
+                                    <span class="action-text">Study Tips & Techniques</span>
+                                    <span class="material-icons action-arrow">arrow_forward</span>
+                                </button>
+                                <button class="quick-action-card" data-prompt="Books for entrepreneurship and startups">
+                                    <span class="action-icon">💡</span>
+                                    <span class="action-text">Entrepreneurship Guide</span>
+                                    <span class="material-icons action-arrow">arrow_forward</span>
+                                </button>
+                                <button class="quick-action-card" data-prompt="Best fiction books for students">
+                                    <span class="action-icon">📖</span>
+                                    <span class="action-text">Fiction Recommendations</span>
+                                    <span class="material-icons action-arrow">arrow_forward</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Input Area -->
+                        <div class="chat-input-container modern-input">
+                            <div class="input-suggestions">
+                                <span class="suggestion-chip" data-prompt="What's the best way to learn programming?">💻 Learn Programming</span>
+                                <span class="suggestion-chip" data-prompt="How to improve my GPA?">📈 Improve GPA</span>
+                                <span class="suggestion-chip" data-prompt="Recommend productivity apps">⚡ Productivity</span>
+                            </div>
+                            <div class="chat-input-wrapper">
+                                <div class="input-field-container">
+                                    <textarea id="chat-input" placeholder="Ask me anything..." rows="1"></textarea>
+                                    <div class="input-actions">
+                                        <button class="input-action-btn" title="Voice input">
+                                            <span class="material-icons">mic</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button id="send-message" class="send-button">
+                                    <span class="material-icons">send</span>
+                                </button>
+                            </div>
+                            <div class="input-footer">
+                                <span class="ai-badge">
+                                    <span class="material-icons">auto_awesome</span>
+                                    Powered by Gemini AI
+                                </span>
+                                <span class="char-count">0 / 1000</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sidebar -->
+                    <aside class="reading-sidebar modern-sidebar">
+                        <!-- AI Info Card -->
+                        <div class="sidebar-card ai-info-card">
+                            <div class="ai-badge-large">
+                                <div class="ai-icon-wrapper">
+                                    <span class="material-icons">psychology</span>
+                                </div>
+                                <div class="ai-info">
+                                    <h4>Smart Assistant</h4>
+                                    <p>Ask anything academic</p>
+                                </div>
+                            </div>
+                            <div class="ai-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">24/7</span>
+                                    <span class="stat-label">Available</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">100+</span>
+                                    <span class="stat-label">Topics</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Saved Lists -->
+                        <div class="sidebar-card saved-lists-card">
+                            <div class="card-header">
+                                <span class="material-icons">collections_bookmark</span>
+                                <h3>Saved Lists</h3>
+                            </div>
+                            <div id="saved-lists" class="saved-lists-container">
+                                <div class="empty-state-modern">
+                                    <span class="material-icons">bookmark_border</span>
+                                    <p>Sign in to save reading lists</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Trending Topics -->
+                        <div class="sidebar-card trending-card">
+                            <div class="card-header">
+                                <span class="material-icons">local_fire_department</span>
+                                <h3>Trending Topics</h3>
+                            </div>
+                            <div class="topic-tags modern-tags">
+                                <span class="topic-tag" data-prompt="Tell me about Machine Learning">Machine Learning</span>
+                                <span class="topic-tag" data-prompt="What is Data Science?">Data Science</span>
+                                <span class="topic-tag" data-prompt="Web Development roadmap">Web Dev</span>
+                                <span class="topic-tag" data-prompt="Psychology books recommendation">Psychology</span>
+                                <span class="topic-tag" data-prompt="Business strategy books">Business</span>
+                                <span class="topic-tag" data-prompt="Best self-help books">Self-Help</span>
+                                <span class="topic-tag" data-prompt="Science books for beginners">Science</span>
+                                <span class="topic-tag" data-prompt="History books recommendation">History</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Tips -->
+                        <div class="sidebar-card tips-card">
+                            <div class="card-header">
+                                <span class="material-icons">lightbulb</span>
+                                <h3>Pro Tips</h3>
+                            </div>
+                            <ul class="tips-list">
+                                <li>
+                                    <span class="tip-icon">💬</span>
+                                    <span>Be specific with your questions</span>
+                                </li>
+                                <li>
+                                    <span class="tip-icon">🎯</span>
+                                    <span>Mention your skill level</span>
+                                </li>
+                                <li>
+                                    <span class="tip-icon">📌</span>
+                                    <span>Ask follow-up questions</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>&copy; 2024 Smart Campus Community. Built with Google Cloud Technologies.</p>
+        </footer>
+    </div>
+
+    <!-- Modals -->
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content auth-modal">
+            <button class="modal-close">&times;</button>
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Sign In</button>
+                <button class="auth-tab" data-tab="signup">Sign Up</button>
+            </div>
+            
+            <form id="login-form" class="auth-form active">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+                <div class="auth-divider"><span>or</span></div>
+                <button type="button" id="google-login" class="btn btn-google btn-full">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                    Continue with Google
+                </button>
+            </form>
+            
+            <form id="signup-form" class="auth-form">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required minlength="6">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                <div class="auth-divider"><span>or</span></div>
+                <button type="button" id="google-signup" class="btn btn-google btn-full">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                    Continue with Google
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Study Space Modal -->
+    <div id="add-space-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h2>Suggest a Study Space</h2>
+            <form id="add-space-form">
+                <div class="form-group">
+                    <label for="space-name">Space Name</label>
+                    <input type="text" id="space-name" required placeholder="e.g., Central Library 3rd Floor">
+                </div>
+                <div class="form-group">
+                    <label for="space-type">Type</label>
+                    <select id="space-type" required>
+                        <option value="">Select type...</option>
+                        <option value="library">Library</option>
+                        <option value="cafe">Café</option>
+                        <option value="study-room">Study Room</option>
+                        <option value="outdoor">Outdoor Space</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="space-address">Address</label>
+                    <input type="text" id="space-address" required placeholder="Building name or street address">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="space-capacity">Capacity</label>
+                        <input type="number" id="space-capacity" min="1" placeholder="Max people">
+                    </div>
+                    <div class="form-group">
+                        <label for="noise-level">Noise Level</label>
+                        <select id="noise-level">
+                            <option value="quiet">Quiet</option>
+                            <option value="moderate">Moderate</option>
+                            <option value="lively">Lively</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Amenities</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="amenities" value="wifi"> WiFi</label>
+                        <label><input type="checkbox" name="amenities" value="power"> Power Outlets</label>
+                        <label><input type="checkbox" name="amenities" value="coffee"> Coffee Available</label>
+                        <label><input type="checkbox" name="amenities" value="printing"> Printing</label>
+                        <label><input type="checkbox" name="amenities" value="whiteboard"> Whiteboard</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Submit Suggestion</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Mentor Registration Modal -->
+    <div id="mentor-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h2>Become a Mentor</h2>
+            <form id="mentor-form">
+                <div class="form-group">
+                    <label for="mentor-title">Professional Title</label>
+                    <input type="text" id="mentor-title" required placeholder="e.g., Software Engineer at Google">
+                </div>
+                <div class="form-group">
+                    <label for="mentor-bio">Bio</label>
+                    <textarea id="mentor-bio" required placeholder="Tell students about your experience and what you can help with..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="mentor-expertise">Areas of Expertise</label>
+                    <input type="text" id="mentor-expertise" required placeholder="e.g., Web Development, Machine Learning (comma separated)">
+                </div>
+                <div class="form-group">
+                    <label for="mentor-linkedin">LinkedIn Profile (optional)</label>
+                    <input type="url" id="mentor-linkedin" placeholder="https://linkedin.com/in/yourprofile">
+                </div>
+                <div class="form-group">
+                    <label for="mentor-availability">Availability</label>
+                    <select id="mentor-availability">
+                        <option value="weekdays">Weekdays</option>
+                        <option value="weekends">Weekends</option>
+                        <option value="evenings">Evenings Only</option>
+                        <option value="flexible">Flexible</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Register as Mentor</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Mentor Profile Modal -->
+    <div id="profile-modal" class="modal">
+        <div class="modal-content modal-large">
+            <button class="modal-close">&times;</button>
+            <div class="profile-header" id="profile-header">
+                <div class="profile-avatar">
+                    <span class="material-icons">person</span>
+                </div>
+                <div class="profile-info">
+                    <h2 id="profile-name">Mentor Name</h2>
+                    <p id="profile-title" class="profile-title">Professional Title</p>
+                    <div class="profile-rating">
+                        <span class="material-icons">star</span>
+                        <span id="profile-rating">0.0</span>
+                        <span id="profile-reviews">(0 reviews)</span>
+                    </div>
+                    <span id="profile-availability" class="availability-badge">Available</span>
+                </div>
+            </div>
+            
+            <div class="profile-body">
+                <div class="profile-section">
+                    <h3><span class="material-icons">info</span> About</h3>
+                    <p id="profile-bio">Bio information will appear here.</p>
+                </div>
+                
+                <div class="profile-section">
+                    <h3><span class="material-icons">psychology</span> Areas of Expertise</h3>
+                    <div id="profile-skills" class="profile-skills">
+                        <!-- Skills tags will be populated here -->
+                    </div>
+                </div>
+                
+                <div class="profile-section">
+                    <h3><span class="material-icons">schedule</span> Availability</h3>
+                    <p id="profile-availability-text">Flexible</p>
+                </div>
+                
+                <div id="profile-linkedin-section" class="profile-section hidden">
+                    <h3><span class="material-icons">link</span> LinkedIn</h3>
+                    <a id="profile-linkedin" href="#" target="_blank" class="linkedin-link">
+                        <span class="material-icons">open_in_new</span>
+                        View LinkedIn Profile
+                    </a>
+                </div>
+            </div>
+            
+            <div class="profile-footer">
+                <button id="profile-message-btn" class="btn btn-outline" data-mentor-id="">
+                    <span class="material-icons">chat</span>
+                    Send Message
+                </button>
+                <button id="profile-connect-btn" class="btn btn-primary" data-mentor-id="">
+                    <span class="material-icons">handshake</span>
+                    Request Mentorship
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mentorship Request Modal -->
+    <div id="request-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h2>Request Mentorship</h2>
+            <div id="mentor-preview" class="mentor-preview"></div>
+            <form id="request-form">
+                <input type="hidden" id="request-mentor-id">
+                <div class="form-group">
+                    <label for="request-message">Message to Mentor</label>
+                    <textarea id="request-message" required placeholder="Introduce yourself and explain what you'd like to learn or discuss..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="request-goals">Your Goals</label>
+                    <input type="text" id="request-goals" placeholder="e.g., Career advice, technical skills, project guidance">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Send Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Mentor Dashboard Modal -->
+    <div id="mentor-dashboard-modal" class="modal">
+        <div class="modal-content modal-large">
+            <button class="modal-close">&times;</button>
+            <h2><span class="material-icons">dashboard</span> Mentor Dashboard</h2>
+            <p class="dashboard-subtitle">Manage your mentorship requests from students</p>
+            
+            <div class="dashboard-tabs">
+                <button class="dashboard-tab active" data-tab="pending">Pending Requests</button>
+                <button class="dashboard-tab" data-tab="accepted">Accepted</button>
+                <button class="dashboard-tab" data-tab="declined">Declined</button>
+            </div>
+            
+            <div class="dashboard-content">
+                <div id="pending-requests" class="requests-list active">
+                    <div class="loading-placeholder">
+                        <span class="material-icons spinning">sync</span>
+                        <p>Loading requests...</p>
+                    </div>
+                </div>
+                <div id="accepted-requests" class="requests-list">
+                    <p class="empty-state">No accepted requests yet</p>
+                </div>
+                <div id="declined-requests" class="requests-list">
+                    <p class="empty-state">No declined requests</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Profile Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content modal-large">
+            <button class="modal-close">&times;</button>
+            <h2><span class="material-icons">settings</span> Profile Settings</h2>
+            
+            <div class="settings-container">
+                <div class="settings-sidebar">
+                    <button class="settings-nav-btn active" data-settings-tab="profile">
+                        <span class="material-icons">person</span>
+                        <span>Profile</span>
+                    </button>
+                    <button class="settings-nav-btn" data-settings-tab="account">
+                        <span class="material-icons">manage_accounts</span>
+                        <span>Account</span>
+                    </button>
+                    <button class="settings-nav-btn" data-settings-tab="notifications">
+                        <span class="material-icons">notifications</span>
+                        <span>Notifications</span>
+                    </button>
+                    <button class="settings-nav-btn" data-settings-tab="preferences">
+                        <span class="material-icons">tune</span>
+                        <span>Preferences</span>
+                    </button>
+                    <button class="settings-nav-btn" data-settings-tab="privacy">
+                        <span class="material-icons">security</span>
+                        <span>Privacy</span>
+                    </button>
+                </div>
+                
+                <div class="settings-content">
+                    <!-- Profile Tab -->
+                    <div class="settings-tab active" id="settings-profile">
+                        <h3>Profile Information</h3>
+                        <p class="settings-description">Update your personal information and profile picture</p>
+                        
+                        <!-- Role Badges Section -->
+                        <div class="settings-section role-section">
+                            <h4><span class="material-icons">badge</span> Your Roles</h4>
+                            <p class="settings-description">Your roles and contributions on Smart Campus</p>
+                            <div class="role-badges-display" id="settings-role-badges">
+                                <div class="role-badge-card student">
+                                    <span class="material-icons">school</span>
+                                    <div class="role-badge-info">
+                                        <span class="role-badge-title">Student</span>
+                                        <span class="role-badge-desc">Campus community member</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="role-stats" id="settings-role-stats">
+                                <div class="role-stat">
+                                    <span class="role-stat-value" id="stat-spaces">0</span>
+                                    <span class="role-stat-label">Spaces Suggested</span>
+                                </div>
+                                <div class="role-stat">
+                                    <span class="role-stat-value" id="stat-mentees">0</span>
+                                    <span class="role-stat-label">Students Mentored</span>
+                                </div>
+                                <div class="role-stat">
+                                    <span class="role-stat-value" id="stat-messages">0</span>
+                                    <span class="role-stat-label">Messages Sent</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-photo-section">
+                            <div class="profile-photo-preview" id="profile-photo-preview">
+                                <span class="material-icons">person</span>
+                            </div>
+                            <div class="profile-photo-actions">
+                                <label for="profile-photo-input" class="btn btn-outline">
+                                    <span class="material-icons">upload</span>
+                                    Upload Photo
+                                </label>
+                                <input type="file" id="profile-photo-input" accept="image/*" hidden>
+                                <button class="btn btn-ghost" id="remove-photo-btn">
+                                    <span class="material-icons">delete</span>
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <form id="profile-form" class="settings-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="settings-display-name">Display Name</label>
+                                    <input type="text" id="settings-display-name" placeholder="Your name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="settings-email">Email</label>
+                                    <input type="email" id="settings-email" disabled>
+                                    <small class="form-hint">Email cannot be changed</small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="settings-bio">Bio</label>
+                                <textarea id="settings-bio" placeholder="Tell us about yourself..." rows="3"></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="settings-major">Major/Field of Study</label>
+                                    <input type="text" id="settings-major" placeholder="e.g., Computer Science">
+                                </div>
+                                <div class="form-group">
+                                    <label for="settings-year">Year</label>
+                                    <select id="settings-year">
+                                        <option value="">Select year...</option>
+                                        <option value="freshman">Freshman</option>
+                                        <option value="sophomore">Sophomore</option>
+                                        <option value="junior">Junior</option>
+                                        <option value="senior">Senior</option>
+                                        <option value="graduate">Graduate</option>
+                                        <option value="alumni">Alumni</option>
+                                        <option value="faculty">Faculty/Staff</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="settings-interests">Interests</label>
+                                <input type="text" id="settings-interests" placeholder="e.g., AI, Web Development, Research (comma separated)">
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Account Tab -->
+                    <div class="settings-tab" id="settings-account">
+                        <h3>Account Settings</h3>
+                        <p class="settings-description">Manage your account security and authentication</p>
+                        
+                        <div class="settings-section">
+                            <h4><span class="material-icons">lock</span> Change Password</h4>
+                            <form id="password-form" class="settings-form">
+                                <div class="form-group">
+                                    <label for="current-password">Current Password</label>
+                                    <input type="password" id="current-password" placeholder="Enter current password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-password">New Password</label>
+                                    <input type="password" id="new-password" placeholder="Enter new password" minlength="6">
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirm-password">Confirm New Password</label>
+                                    <input type="password" id="confirm-password" placeholder="Confirm new password">
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary">Update Password</button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <div class="settings-section">
+                            <h4><span class="material-icons">link</span> Connected Accounts</h4>
+                            <div class="connected-accounts">
+                                <div class="connected-account" id="google-connection">
+                                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                                    <span>Google</span>
+                                    <span class="connection-status" id="google-status">Not connected</span>
+                                    <button class="btn btn-outline btn-sm" id="connect-google-btn">Connect</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-section danger-zone">
+                            <h4><span class="material-icons">warning</span> Danger Zone</h4>
+                            <p>Once you delete your account, there is no going back. Please be certain.</p>
+                            <button class="btn btn-danger" id="delete-account-btn">
+                                <span class="material-icons">delete_forever</span>
+                                Delete Account
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Notifications Tab -->
+                    <div class="settings-tab" id="settings-notifications">
+                        <h3>Notification Preferences</h3>
+                        <p class="settings-description">Choose what notifications you receive</p>
+                        
+                        <div class="notification-settings">
+                            <div class="notification-item">
+                                <div class="notification-info">
+                                    <h4>Mentorship Requests</h4>
+                                    <p>Get notified when someone requests mentorship</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="notify-mentorship" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="notification-item">
+                                <div class="notification-info">
+                                    <h4>Study Space Updates</h4>
+                                    <p>Get alerts about your favorite study spaces</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="notify-spaces" checked>
+                                       <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="notification-item">
+                                <div class="notification-info">
+                                    <h4>Reading Recommendations</h4>
+                                    <p>Receive personalized reading suggestions</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="notify-reading">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="notification-item">
+                                <div class="notification-info">
+                                    <h4>Email Digest</h4>
+                                    <p>Weekly summary of your campus activity</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="notify-email-digest">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary" id="save-notifications-btn">Save Preferences</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Preferences Tab -->
+                    <div class="settings-tab" id="settings-preferences">
+                        <h3>App Preferences</h3>
+                        <p class="settings-description">Customize your app experience</p>
+                        
+                        <div class="preference-settings">
+                            <div class="preference-item">
+                                <div class="preference-info">
+                                    <h4>Theme</h4>
+                                    <p>Choose your preferred appearance</p>
+                                </div>
+                                <select id="theme-preference" class="preference-select">
+                                    <option value="light">Light</option>
+                                    <option value="dark">Dark</option>
+                                    <option value="system">System Default</option>
+                                </select>
+                            </div>
+                            <div class="preference-item">
+                                <div class="preference-info">
+                                    <h4>Default Section</h4>
+                                    <p>Which section to show on startup</p>
+                                </div>
+                                <select id="default-section" class="preference-select">
+                                    <option value="study-spaces">Study Spaces</option>
+                                    <option value="mentorship">Mentorship</option>
+                                    <option value="reading-curator">Reading Curator</option>
+                                </select>
+                            </div>
+                            <div class="preference-item">
+                                <div class="preference-info">
+                                    <h4>Distance Unit</h4>
+                                    <p>Unit for displaying distances</p>
+                                </div>
+                                <select id="distance-unit" class="preference-select">
+                                    <option value="miles">Miles</option>
+                                    <option value="km">Kilometers</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary" id="save-preferences-btn">Save Preferences</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Privacy Tab -->
+                    <div class="settings-tab" id="settings-privacy">
+                        <h3>Privacy Settings</h3>
+                        <p class="settings-description">Control your privacy and data</p>
+                        
+                        <div class="privacy-settings">
+                            <div class="privacy-item">
+                                <div class="privacy-info">
+                                    <h4>Profile Visibility</h4>
+                                    <p>Who can see your profile information</p>
+                                </div>
+                                <select id="profile-visibility" class="preference-select">
+                                    <option value="public">Everyone</option>
+                                    <option value="campus">Campus Only</option>
+                                    <option value="private">Only Me</option>
+                                </select>
+                            </div>
+                            <div class="privacy-item">
+                                <div class="privacy-info">
+                                    <h4>Show Online Status</h4>
+                                    <p>Let others see when you're active</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="show-online-status" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="privacy-item">
+                                <div class="privacy-info">
+                                    <h4>Allow Mentorship Requests</h4>
+                                    <p>Let students send you mentorship requests</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="allow-mentorship-requests" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="privacy-item">
+                                <div class="privacy-info">
+                                    <h4>Share Activity Data</h4>
+                                    <p>Help improve the app by sharing usage data</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="share-activity-data">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary" id="save-privacy-btn">Save Privacy Settings</button>
+                        </div>
+                        
+                        <div class="settings-section">
+                            <h4><span class="material-icons">download</span> Your Data</h4>
+                            <p>Download a copy of all your data stored in Smart Campus</p>
+                            <button class="btn btn-outline" id="download-data-btn">
+                                <span class="material-icons">cloud_download</span>
+                                Download My Data
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Modal -->
+    <div id="chat-modal" class="modal">
+        <div class="modal-content chat-modal">
+            <div class="chat-header">
+                <div class="chat-user-info">
+                    <img id="chat-user-avatar" src="" alt="User" class="chat-avatar">
+                    <div class="chat-user-details">
+                        <h3 id="chat-user-name">User Name</h3>
+                        <span id="chat-user-status" class="chat-status">
+                            <span class="status-dot online"></span>
+                            Online
+                        </span>
+                    </div>
+                </div>
+                <div class="chat-header-actions">
+                    <button class="btn btn-icon" id="chat-info-btn" title="View Profile">
+                        <span class="material-icons">info</span>
+                    </button>
+                    <button class="modal-close">&times;</button>
+                </div>
+            </div>
+            
+            <div class="chat-messages" id="chat-messages">
+                <div class="chat-loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading messages...</p>
+                </div>
+            </div>
+            
+            <div class="chat-input-area">
+                <div class="chat-input-container">
+                    <button class="btn btn-icon chat-attach" id="chat-attach-btn" title="Attach file">
+                        <span class="material-icons">attach_file</span>
+                    </button>
+                    <input type="text" id="chat-input" placeholder="Type a message..." autocomplete="off">
+                    <button class="btn btn-primary chat-send" id="chat-send-btn">
+                        <span class="material-icons">send</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conversations List Modal -->
+    <div id="conversations-modal" class="modal">
+        <div class="modal-content conversations-modal">
+            <button class="modal-close">&times;</button>
+            <div class="conversations-header">
+                <h2><span class="material-icons">forum</span> Messages</h2>
+                <div class="conversations-search">
+                    <span class="material-icons">search</span>
+                    <input type="text" id="conversations-search" placeholder="Search conversations...">
+                </div>
+            </div>
+            <div class="conversations-list" id="conversations-list">
+                <div class="conversations-empty">
+                    <span class="material-icons">chat_bubble_outline</span>
+                    <p>No conversations yet</p>
+                    <span class="empty-hint">Connect with a mentor to start chatting</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    
+    <!-- App Scripts -->
+    <script src="js/config/firebase-config.js"></script>
+    <script src="js/services/firebase-service.js"></script>
+    <script src="js/services/maps-service.js"></script>
+    <script src="js/services/gemini-service.js"></script>
+    <script src="js/modules/study-spaces.js"></script>
+    <script src="js/modules/mentorship.js"></script>
+    <script src="js/modules/reading-curator.js"></script>
+    <script src="js/modules/chat.js"></script>
+    <script src="js/app.js"></script>
+    
+    <!-- Google Maps API (loaded dynamically) -->
+    <script>
+        // Maps API will be loaded by the app after config is available
+    </script>
+</body>
+</html>
