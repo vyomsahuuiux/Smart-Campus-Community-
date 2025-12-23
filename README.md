@@ -2,7 +2,7 @@
 
 A comprehensive web application that helps students find study spaces, connect with mentors, and get AI-powered reading recommendations. Built with Google Cloud technologies including Firebase, Google Maps API, and Gemini AI.
 
-![Smart Campus Banner](https://via.placeholder.com/1200x400/4285f4/ffffff?text=Smart+Campus+Community)
+![Smart Campus Banner]([(https://vyomsahu2003.github.io/Smart-Campus-Community-/))
 
 ## ✨ Features
 
